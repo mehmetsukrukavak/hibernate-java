@@ -9,21 +9,27 @@ import org.hibernate.cfg.Configuration;
 public class Main {
     public static void main(String[] args) {
         Student s1 = new Student();
-        s1.setsName("jane");
+        s1.setsName("Gustov");
         s1.setsAge(47);
-        s1.setRollNo(101);
+        s1.setRollNo(107);
 
-        Configuration cfg = new Configuration();
-        cfg.addAnnotatedClass(com.mehmetsukrukavak.Student.class);
-        cfg.configure("hibernate.cfg.xml");
-        SessionFactory sf = cfg.buildSessionFactory();
+//        Configuration cfg = new Configuration();
+//        cfg.addAnnotatedClass(com.mehmetsukrukavak.Student.class);
+//        cfg.configure();
+
+        SessionFactory sf = new Configuration()
+                .addAnnotatedClass(com.mehmetsukrukavak.Student.class)
+                .configure()
+                .buildSessionFactory(); //cfg.buildSessionFactory();
         Session session = sf.openSession();
 
         Transaction tx = session.beginTransaction();
 
-        session.save(s1);
+        session.persist(s1);
 
         tx.commit();
+        session.close();
+        sf.close();
         System.out.println(s1);
     }
 }

@@ -1,17 +1,29 @@
 package com.mehmetsukrukavak;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        Student s1 = new Student();
+        s1.setsName("jane");
+        s1.setsAge(47);
+        s1.setRollNo(101);
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+        Configuration cfg = new Configuration();
+        cfg.addAnnotatedClass(com.mehmetsukrukavak.Student.class);
+        cfg.configure("hibernate.cfg.xml");
+        SessionFactory sf = cfg.buildSessionFactory();
+        Session session = sf.openSession();
+
+        Transaction tx = session.beginTransaction();
+
+        session.save(s1);
+
+        tx.commit();
+        System.out.println(s1);
     }
 }

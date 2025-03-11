@@ -15,11 +15,11 @@ public class Main {
                 .buildSessionFactory(); //cfg.buildSessionFactory();
         Session session = sf.openSession();
 
-        //Student s = save(session);
-        Student s = session.get(Student.class, 104);
+        Student s = save(session);
+        s = session.get(Student.class, 110);
         //s1.setsAge(45);
         //update(session,s1);
-        delete(session,s);
+        //delete(session,s);
         session.close();
         sf.close();
         System.out.println(s);
@@ -29,9 +29,17 @@ public class Main {
         Transaction tx = session.beginTransaction();
 
         Student s1 = new Student();
-        s1.setsName("Heimdall");
-        s1.setsAge(100);
-        s1.setRollNo(109);
+        s1.setsName("Mark");
+        s1.setsAge(22);
+        s1.setRollNo(110);
+
+        School school = new School();
+        school.setName("San Francisco School");
+        school.setAddress("San Francisco");
+
+
+        s1.setSchool(school);
+
 
         session.persist(s1);
 

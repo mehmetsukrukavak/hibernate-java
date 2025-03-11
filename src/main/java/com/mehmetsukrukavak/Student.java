@@ -9,7 +9,18 @@ public class Student {
     @Id
     private int rollNo;
     private String sName;
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
+
     private int sAge;
+
+    private School school;
 
     public int getRollNo() {
         return rollNo;
@@ -41,7 +52,7 @@ public class Student {
                 "rollNo=" + rollNo +
                 ", sName='" + sName + '\'' +
                 ", sAge=" + sAge +
+                ", school=" + school +
                 '}';
     }
-
 }

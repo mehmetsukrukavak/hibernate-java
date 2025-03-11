@@ -1,7 +1,8 @@
 package com.mehmetsukrukavak;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Student {
@@ -9,6 +10,23 @@ public class Student {
     @Id
     private int rollNo;
     private String sName;
+    private int sAge;
+
+    private School school;
+
+    @OneToOne
+    private Laptop laptop;
+
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
+    private List<Lesson> lessons;
+
+    public Laptop getLaptop() {
+        return laptop;
+    }
+
+    public void setLaptop(Laptop laptop) {
+        this.laptop = laptop;
+    }
 
     public School getSchool() {
         return school;
@@ -18,9 +36,7 @@ public class Student {
         this.school = school;
     }
 
-    private int sAge;
 
-    private School school;
 
     public int getRollNo() {
         return rollNo;
@@ -46,6 +62,14 @@ public class Student {
         this.sAge = sAge;
     }
 
+    public List<Lesson> getLessons() {
+        return lessons;
+    }
+
+    public void setLessons(List<Lesson> lessons) {
+        this.lessons = lessons;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -53,6 +77,8 @@ public class Student {
                 ", sName='" + sName + '\'' +
                 ", sAge=" + sAge +
                 ", school=" + school +
+                ", laptop=" + laptop +
+             //   ", lessons=" + lessons +
                 '}';
     }
 }
